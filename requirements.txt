@@ -2,7 +2,7 @@ streamlit
 numpy == 1.22.4
 pandas == 1.5.3
 scipy == 1.10.1
-matplotlib.pyplot == 3.7.1
+matplotlib.pyplot
 pandas_datareader
 sklearn.model_selection
 sklearn.ensemble
