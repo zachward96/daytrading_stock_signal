@@ -165,7 +165,7 @@ with tab3:
 	neural_net = st.checkbox("Neural Net")
 	random_forest = st.checkbox("Random Forest")
 	if neural_net:
-		if st.button('Generate Neural Net Predictions'):
+		if st.button('Generate Neural Net Predictions (This could take up to 5 minutes)'):
 			data = load_data(user_input_symbol, user_input_start_date, user_input_end_date)
 
 			open_labels = data['Open'].shift(-1).fillna(data['Open'].iloc[-1])
@@ -263,9 +263,11 @@ with tab3:
 			close_pred_rf = tomorrows_close_pred_rf[-1]
 
 			if close_pred_rf > open_pred_rf:
-  				st.write('BUY, the stock is predicted to increase by', close_pred_rf - open_pred_rf, 'tomorrow')
+  				st.write('BUY: the stock is predicted to increase by', round(close_pred_rf - open_pred_rf, 3), 'tomorrow')
+  				st.write('WARNING: this prediction could be off by as much as +/-', round(RMSE_open + RMSE_close, 3))
 			else:
-  				st.write('SELL, the stock is predicted to decrease by', close_pred_rf - open_pred_rf, 'tomorrow')
+  				st.write('SELL: the stock is predicted to decrease by', round(close_pred_rf - open_pred_rf, 3), 'tomorrow')
+  				st.write('WARNING: this prediction could be off by as much as +/-', round(RMSE_open + RMSE_close, 3))
 
 
 #data_load_state = st.text('Data is loading')
