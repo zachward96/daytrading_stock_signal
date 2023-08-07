@@ -1,12 +1,10 @@
 # ******************************* IMPORTS *******************************
 
-pip install scipy
-
 import streamlit as st
 import numpy as np
 import pandas as pd
 import math
-import scipy as stats
+#import scipy as stats
 import matplotlib.pyplot as plt
 from pandas_datareader import data as pdr
 from sklearn.model_selection import train_test_split
