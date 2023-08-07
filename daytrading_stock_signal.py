@@ -252,6 +252,7 @@ with tab3:
 			rnd_for_open.fit(x_train_open, y_train_open)
 			pred_rf_open = rnd_for_open.predict(x_test_open)
 
+			RMSE_open = np.sqrt(mean_squared_error(y_test_open, pred_rf_open))
 			tomorrows_open_pred_rf = rnd_for_open.predict(open_features)
 			open_pred_rf = tomorrows_open_pred_rf[-1]
 
@@ -259,6 +260,7 @@ with tab3:
 			rnd_for_close.fit(x_train_close, y_train_close)
 			pred_rf_close = rnd_for_close.predict(x_test_close)
 
+			RMSE_close = np.sqrt(mean_squared_error(y_test_close, pred_rf_close))
 			tomorrows_close_pred_rf = rnd_for_close.predict(close_features)
 			close_pred_rf = tomorrows_close_pred_rf[-1]
 
