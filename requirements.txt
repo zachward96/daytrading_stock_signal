@@ -1,0 +1,15 @@
+streamlit
+numpy
+pandas
+math
+scipy
+matplotlib.pyplot
+pandas_datareader
+sklearn.model_selection
+sklearn.ensemble
+sklearn.metrics
+sklearn.preprocessing
+tensorflow
+time
+yfinance
+warnings
