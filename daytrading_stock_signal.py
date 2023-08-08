@@ -138,15 +138,16 @@ def load_data(user_input_symbol, user_input_start_date, user_input_end_date):
 
 # ****************************** STREAMLIT FOUNDATION ************************************
 
-tab1, tab2, tab3 = st.tabs(["Resume", "Instructions", "Prediction"])
+tab1, tab2, tab3 = st.tabs(["Welcome!", "How Does This Work?", "Prediction"])
 
 #app_mode = st.sidebar.selectbox(label = 'Navigation', options = ['Resume', 'Instructions', 
 #'Data Viewing', 'Prediction'])
 
 with tab1:
-	st.header('Resume')
-	st.subheader("Experience")
-	st.markdown('This is where a resume could go')
+	st.header('Welcome!')
+	st.markdown('Welcome to my day trading stock signal system. 
+ My name is Zach Ward and, first and foremost, I am not a registered financial advisor in any way. Any decisions that you make regarding
+ your money is your own decision and you are responsible for it. Don't be dumb.')
 
 with tab2:
 	st.header("How to use this app")
