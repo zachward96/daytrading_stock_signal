@@ -148,7 +148,7 @@ with tab1:
 	st.markdown('Welcome to my day trading stock signal system.')
 	st.markdown('My name is Zach Ward and, first and foremost, I am not a registered financial advisor in any way.') 
 	st.markdown('Any decisions that you make regarding your money is your own decision and you are responsible for it.') 
-	st.markdown('Don't be dumb.')
+	st.markdown("Don't be dumb.")
 
 with tab2:
 	st.header("How to use this app")
