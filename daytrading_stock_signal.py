@@ -138,7 +138,7 @@ def load_data(user_input_symbol, user_input_start_date, user_input_end_date):
 
 # ****************************** STREAMLIT FOUNDATION ************************************
 
-tab1, tab2, tab3 = st.tabs(["Welcome!", "How Does This Work?", "Prediction"])
+tab1, tab2, tab3, tab4 = st.tabs(["Welcome!", "How Do I Use This?", "Prediction System", "Under The Hood"])
 
 #app_mode = st.sidebar.selectbox(label = 'Navigation', options = ['Resume', 'Instructions', 
 #'Data Viewing', 'Prediction'])
@@ -150,9 +150,11 @@ with tab1:
 	st.markdown('Any decisions that you make regarding your money are your own and you are responsible for them.') 
 	st.markdown("Don't be dumb.")
 	st.markdown('')
+	st.markdown('')
 	st.markdown('The idea behind this system is to leverage some of the statistical tools used by major trading firms for the individual investor')
-	st.markdown("If you are interested aabout what exactly this system is doing head on over to the 'Under the Hood' tab")
+	st.markdown("If you are interested in what exactly this system is doing head on over to the 'Under the Hood' tab")
 	st.markdown('I owe specific thanks to Kaggle user Devpark0506 and Sebestian Donadio as their work was instrumental in the creation of this system')
+	st.markdown('')
 	st.markdown('')
 	st.markdown('If you have any questions or suggestions feel free to contact me at zach.ward@me.com. Otherwise dive in')
 
@@ -279,6 +281,31 @@ with tab3:
   				st.write('SELL: the stock is predicted to decrease by', round(close_pred_rf - open_pred_rf, 3), 'tomorrow')
   				st.write('WARNING: this prediction could be off by as much as +/-', round(RMSE_open + RMSE_close, 3))
 
+
+with tab4:
+	st.header('How does this system work?')
+	st.subheader('Basic Structure')
+	st.markdown('This system leverages statistical tools like emas, rolling averages, volatility calculations, and apos and then feeds these features into two different machine learning algorithms.')
+	st.markdown('These statistical tools are frequently used by major trading firms, but not by the average investor.')
+	st.markdown('The main reason for this is that they take a lot of time to calculate unless you are using a computer system (who wants to calculate rolling averages in 20, 40, and 60 day periods by hand right?)')
+	st.markdown("You might be wondering though, why I don't show you these features.")
+	st.markdown('The answer is that these features are not overly helpful in and of themselves. The 40 day volatility of a stock is not going to be the only decision point on wether or not to buy it.')
+	st.markdown('Rather, these features excel as factors in the decision making process. Then we use machine learning algorithms (in this case Neural Networks and Random Forests) to make that decision')
+	st.subheader('Neural Networks')
+	st.markdown("I won't go to far in depth on how neural networks operate here, but think of them as your personal pocket savant who can memorize the whole dataset and extract what you want out of it.")
+	st.markdown('In theory this would make neural networks incredibly effective at stock prediction. However, in this particular system, we see a higher error rate than in the random forest system')
+	st.subheader('Random Forest')
+	st.markdown('The best way to conceptualize a random forest is visually. Think of it as a big system of decision trees (if feature A is yes you go right, if no you go left)')
+	st.markdown('This ultimately will create a numeric prediction for the stock')
+	st.subheader('How do we actually get the prediction?')
+	st.markdown('The idea of using machine learning for stock prediction is not a new one.')
+	st.markdown('This system is mainly focused at trying to solve the issue of time horizon.')
+	st.markdown('Most stock prediction systems currently available to the average individual inform you if a stock will go up or down, but not how long it will take for it to do so.')
+	st.markdown('This means that you could turn a profit in a day, or it could take six months.')
+	st.markdown('In an effort to eliminate this issue, this system produces two different predictions. One for the Open price of the next daay, and one for the close price.')
+	st.markdown('The positive side of this is that it very clearly defines our time horizon at one trading day.')
+	st.markdown('Unfortunately it carries with it the downside of effectively doubling our error rate since there are two predictions instead of one.')
+	st.markdown('However, I believe that the benefit of a defined time horizon outweights the downside of increased error rate, especially when the system is utilized by an aware investor.')
 
 #data_load_state = st.text('Data is loading')
 #	st.dataframe(data)
