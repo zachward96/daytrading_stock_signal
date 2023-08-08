@@ -146,8 +146,8 @@ tab1, tab2, tab3 = st.tabs(["Welcome!", "How Does This Work?", "Prediction"])
 with tab1:
 	st.header('Welcome!')
 	st.markdown('Welcome to my day trading stock signal system.')
- 	st.markdown('My name is Zach Ward and, first and foremost, I am not a registered financial advisor in any way.') 
-  	st.markdown('Any decisions that you make regarding your money is your own decision and you are responsible for it.') 
+	st.markdown('My name is Zach Ward and, first and foremost, I am not a registered financial advisor in any way.') 
+	st.markdown('Any decisions that you make regarding your money is your own decision and you are responsible for it.') 
 	st.markdown('Don't be dumb.')
 
 with tab2:
