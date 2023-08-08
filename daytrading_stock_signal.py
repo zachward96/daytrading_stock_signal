@@ -147,8 +147,14 @@ with tab1:
 	st.header('Welcome!')
 	st.markdown('Welcome to my day trading stock signal system.')
 	st.markdown('My name is Zach Ward and, first and foremost, I am not a registered financial advisor in any way.') 
-	st.markdown('Any decisions that you make regarding your money is your own decision and you are responsible for it.') 
+	st.markdown('Any decisions that you make regarding your money are your own and you are responsible for them.') 
 	st.markdown("Don't be dumb.")
+	st.markdown('')
+	st.markdown('The idea behind this system is to leverage some of the statistical tools used by major trading firms for the individual investor')
+	st.markdown("If you are interested aabout what exactly this system is doing head on over to the 'Under the Hood' tab")
+	st.markdown('I owe specific thanks to Kaggle user Devpark0506 and Sebestian Donadio as their work was instrumental in the creation of this system')
+	st.markdown('')
+	st.markdown('If you have any questions or suggestions feel free to contact me at zach.ward@me.com. Otherwise dive in')
 
 with tab2:
 	st.header("How to use this app")
