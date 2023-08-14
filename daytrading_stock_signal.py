@@ -263,10 +263,10 @@ with tab3:
 
 			if close_pred_nn > open_pred_nn:
   				st.write('BUY, the stock is predicted to increase by', close_pred_nn - open_pred_nn, 'tomorrow, NN')
-				st.write('WARNING: this prediction could be off by as much as +/-', round(rmse_open_nn + rmse_close_nn, 3))
+#				st.write('WARNING: this prediction could be off by as much as +/-', round(rmse_open_nn + rmse_close_nn, 3))
 			else:
   				st.write('SELL, the stock is predicted to decrease by', close_pred_nn - open_pred_nn, 'tomorrow, NN')
-				st.write('WARNING: this prediction could be off by as much as +/-', round(rmse_open_nn + rmse_close_nn, 3))
+#				st.write('WARNING: this prediction could be off by as much as +/-', round(rmse_open_nn + rmse_close_nn, 3))
 
 	if random_forest:
 		if st.button('Generate Random Forest Predictions'):
