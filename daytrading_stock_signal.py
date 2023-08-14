@@ -204,46 +204,69 @@ with tab3:
 			scaled_x_test_open = scaler.fit_transform(x_test_open)
 			scaled_x_test_close = scaler.fit_transform(x_test_close)
 
-			input = keras.layers.Input(shape = x_train_open_nn.shape[1:])
-			hidden1 = keras.layers.Dense(1509, activation = 'relu')(input)
-			hidden2 = keras.layers.Dense(1000, activation = 'relu')(hidden1)
-			hidden3 = keras.layers.Dense(500, activation = 'relu')(hidden2)
-			hidden4 = keras.layers.Dense(100, activation = 'relu')(hidden3)
-			hidden5 = keras.layers.Dense(10, activation = 'relu')(hidden4)
-			concat = keras.layers.concatenate([input, hidden5])
-			output = keras.layers.Dense(1)(concat)
-			open_model_deep_wide = keras.models.Model(inputs=[input], outputs = [output])
+			open_model_deep_normalized = keras.models.Sequential([
+    				keras.layers.Dense(1509, activation = 'relu'),
+    				keras.layers.Dense(755, activation = 'relu'),
+   				keras.layers.Dense(378, activation = 'relu'),
+    				keras.layers.Dense(188, activation = 'relu'),
+    				keras.layers.Dense(95, activation = 'relu'),
+    				keras.layers.Dense(45, activation = 'relu'),
+    				keras.layers.Dense(24, activation = 'relu'),
+    				keras.layers.BatchNormalization(),
+    				keras.layers.Dense(1)
+			])
 
 			early_stopping = keras.callbacks.EarlyStopping(patience = 10, restore_best_weights = True)
+			optimizer = keras.optimizers.legacy.Adam(learning_rate = 0.01)
 
-			open_model_deep_wide.compile(loss = 'huber', optimizer = 'adam', metrics=['mean_squared_error'])
+			open_model_deep_normalized.compile(loss = 'huber', 
+						     optimizer = optimizer, 
+						     metrics=['mean_squared_error'])
 
-			open_model_deep_wide_1 = open_model_deep_wide.fit(x_train_open_nn, y_train_open_nn, epochs=200, validation_data = (x_valid_open, y_valid_open), callbacks = [early_stopping])
+			open_model_deep_norm = open_model_deep_normalized.fit(x_train_open_nn, y_train_open_nn, epochs=200, 
+									  validation_data = (x_valid_open, y_valid_open), 
+									  callbacks = [early_stopping])
 
-			tomorrows_open_pred_nn = open_model_deep_wide.predict(scaled_open_features)
+			deep_norm_error = open_model_deep_normalized.evaluate(scaled_x_test_open, y_test_open)
+			rmse_open_nn = np.sqrt(deep_norm_error)
+			rmse_open_nn = rmse_open_nn[1]
+			tomorrows_open_pred_nn = open_model_deep_normalized.predict(scaled_open_features)
 			open_pred_nn = tomorrows_open_pred_nn[-1]
 
 			input = keras.layers.Input(shape = x_train_close_nn.shape[1:])
 			hidden1 = keras.layers.Dense(1509, activation = 'relu')(input)
-			hidden2 = keras.layers.Dense(1000, activation = 'relu')(hidden1)
-			hidden3 = keras.layers.Dense(500, activation = 'relu')(hidden2)
-			hidden4 = keras.layers.Dense(100, activation = 'relu')(hidden3)
-			hidden5 = keras.layers.Dense(10, activation = 'relu')(hidden4)
-			concat = keras.layers.concatenate([input, hidden5])
+			hidden2 = keras.layers.Dense(755, activation = 'relu')(hidden1)
+			hidden3 = keras.layers.Dense(378, activation = 'relu')(hidden2)
+			hidden4 = keras.layers.Dense(188, activation = 'relu')(hidden3)
+			hidden5 = keras.layers.Dense(95, activation = 'relu')(hidden4)
+			hidden6 = keras.layers.Dense(45, activation = 'relu')(hidden5)
+			hidden7 = keras.layers.Dense(24, activation = 'relu')(hidden6)
+			concat = keras.layers.concatenate([input, hidden7])
 			output = keras.layers.Dense(1)(concat)
 			close_model_deep_wide = keras.models.Model(inputs=[input], outputs = [output])
 
-			close_model_deep_wide.compile(loss = 'huber', optimizer = 'adam', metrics=['mean_squared_error'])
+			optimizer = keras.optimizers.legacy.Adam(learning_rate = 0.01)
 
-			close_model_deep_wide_1 = close_model_deep_wide.fit(x_train_close_nn, y_train_close_nn, epochs=200, validation_data = (x_valid_open, y_valid_open), callbacks =[early_stopping])
+			close_model_deep_wide.compile(loss = 'huber', o
+						      ptimizer = optimizer, 
+						      metrics=['mean_squared_error'])
 
+			close_model_deep_wide_1 = close_model_deep_wide.fit(x_train_close_nn, y_train_close_nn, epochs=200, 
+									    validation_data = (x_valid_open, y_valid_open), 
+									    callbacks = [early_stopping])
+
+			close_error_deep_wide = close_model_deep_wide.evaluate(scaled_x_test_close, y_test_close)
+			rmse_close_nn = np.sqrt(close_error_deep_wide)
+			rmse_close_nn = rmse_close_nn[1]
 			tomorrows_close_pred_nn = close_model_deep_wide.predict(scaled_close_features)
 			close_pred_nn = tomorrows_close_pred_nn[-1]
 
 			if close_pred_nn > open_pred_nn:
   				st.write('BUY, the stock is predicted to increase by', close_pred_nn - open_pred_nn, 'tomorrow, NN')
+				st.write('WARNING: this prediction could be off by as much as +/-', round(rmse_open_nn + rmse_close_nn, 3))
 			else:
   				st.write('SELL, the stock is predicted to decrease by', close_pred_nn - open_pred_nn, 'tomorrow, NN')
+				st.write('WARNING: this prediction could be off by as much as +/-', round(rmse_open_nn + rmse_close_nn, 3))
 
 	if random_forest:
 		if st.button('Generate Random Forest Predictions'):
