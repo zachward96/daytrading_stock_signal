@@ -224,8 +224,8 @@ with tab3:
 						     metrics=['mean_squared_error'])
 
 			open_model_deep_norm = open_model_deep_normalized.fit(x_train_open_nn, y_train_open_nn, epochs=200, 
-									  validation_data = (x_valid_open, y_valid_open), 
-									  callbacks = [early_stopping])
+									      validation_data = (x_valid_open, y_valid_open), 
+									      callbacks = [early_stopping])
 
 			deep_norm_error = open_model_deep_normalized.evaluate(scaled_x_test_open, y_test_open)
 			rmse_open_nn = np.sqrt(deep_norm_error)
