@@ -247,7 +247,7 @@ with tab3:
 
 			optimizer = keras.optimizers.legacy.Adam(learning_rate = 0.01)
 
-			close_model_deep_wide.compile(loss = 'huber', o
+			close_model_deep_wide.compile(loss = 'huber',
 						      optimizer = optimizer, 
 						      metrics=['mean_squared_error'])
 
